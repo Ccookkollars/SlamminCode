@@ -8,5 +8,12 @@ This is a temporary script file.
 import requests
 import json
 
-r = requests.get('https://api.spotify.com/v1/me/player/currently-playing')
-print(r.json())
+
+datas = {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": "Bearer THATS MYYYY KEY!"
+        }
+
+r = requests.get('https://api.spotify.com/v1/me/player/currently-playing', headers=datas)
+print(r.text)
