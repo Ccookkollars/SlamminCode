@@ -4,9 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.slammincode</groupId>
 	<artifactId>runrunrun</artifactId>
-	<version>0.0.01</version>
+	<version>0.0.02</version>
 	<properties>
-		<jetty.version>9.4.8.v20171121</jetty.version>
+		<jetty.version>9.4.17.v20190418</jetty.version>
 		<slf4jVersion>1.6.1</slf4jVersion>
 	</properties>
 	<build>
