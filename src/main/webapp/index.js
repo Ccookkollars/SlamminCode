@@ -2,12 +2,15 @@
 
 webSocket = new WebSocket("ws://localhost:8080/sockets/events/");
 webSocket.onmessage = function(event){
-	if (typeof event === "string"){
-		messageReceive(event);
+	var msg = event.data;
+	if (typeof msg === "string"){
+		messageReceive(msg);
+	}else{
+		console.log(event);
 	}
 }
-function messageRecieve(msg){
-	console.log("messageReceive: " + msg);
+function messageReceive(msg){
+	console.log("trying to parse received message as JSON: " + msg);
 	document.getElementsByTagName("h1")[0].innerHTML = msg;
 	dat = JSON.parse(msg);
 	
@@ -22,33 +25,35 @@ function messageRecieve(msg){
 	}
 }
 var canvas = document.getElementById('canvas');
-ctx = canvas.getContext('2d');
+var ctx = canvas.getContext('2d');
 
 function trackKeys(keys) {
-  let down = Object.create(null);
-  function track(event) {
-    if (keys.includes(event.key)) {
-      down[event.key] = event.type == "keydown";
-      event.preventDefault();
-      webSocket.send(event.key);
-      console.log(event.key);
-    }
-  }
-  window.addEventListener("keydown", track);
-  window.addEventListener("keyup", track);
+	let down = Object.create(null);
+	function track(event) {
+		if (keys.includes(event.key)) {
+			if (event.type == "keydown" && !down[event.key]){
+				webSocket.send(event.key);
+				console.log("key: " + event.key);
+			}
+			down[event.key] = event.type == "keydown";
+			event.preventDefault();
+		}
+	}
+	window.addEventListener("keydown", track);
+	window.addEventListener("keyup", track);
 
-  return down;
+	return down;
 }
 function sendDat() {
-  webSocket.send();
+	webSocket.send();
 }
 function Sprite(img, srcwidth, srcheight, width, height, positions){
-  this.img = img;
-  this.srcwidth = srcwidth;
-  this.srcheight = srcheight;
-  this.width = width;
-  this.height = height;
-  this.positions = positions;
+	this.img = img;
+	this.srcwidth = srcwidth;
+	this.srcheight = srcheight;
+	this.width = width;
+	this.height = height;
+	this.positions = positions;
 }
 
 Sprite.prototype = {
@@ -77,7 +82,7 @@ function Dino(path, startframe, endframe, x = 0, y = 0){
 	this.img.src = path;
 	var loc = []; 
 	for(let i=this.startframe; i<this.endframe;i++){
-	    loc[i] = [i*24, 0];
+			loc[i] = [i*24, 0];
 	}
 	this.sprite = new Sprite(this.img, 24, 24, 48, 48, loc);
 }
@@ -97,23 +102,26 @@ dinos = {
 } 
 
 setInterval(() => {
-	ctx.mozImageSmoothingEnabled = false;
 	ctx.webkitImageSmoothingEnabled = false;
 	ctx.msImageSmoothingEnabled = false;
 	ctx.imageSmoothingEnabled = false;
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	for (const [color, dino] of Object.entries(dinos)) {
-	  dino.draw();
+		dino.draw();
 	}
 }, 200);
 
+setInterval(() => {
+	console.log("WebSocket readyState: " + webSocket.readyState);
+}, 10000);
 setTimeout(() => {
-	messageRecieve("{\"x\":50, \"y\":10}");
+	messageReceive("{\"x\":50, \"y\":10}");
 }, 700);
 setTimeout(() => {
-	messageRecieve("{\"color\":\"red\", \"x\":325, \"y\":318}");
+	messageReceive("{\"color\":\"red\", \"x\":325, \"y\":318}");
 }, 1500);
 
+
 document.getElementsByTagName("h1")[0].innerHTML ="Hello";
-console.log("Init");
 const arrowKeys = trackKeys(["ArrowLeft", "ArrowRight", "ArrowUp", "w", "a", "s", "d", "W", "A", "S", "D"]);
+console.log("Javascript initial setup complete");
