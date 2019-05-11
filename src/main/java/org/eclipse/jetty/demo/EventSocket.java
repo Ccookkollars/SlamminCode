@@ -17,12 +17,32 @@ public class EventSocket
     public void onWebSocketConnect(Session sess)
     {
         System.out.println("Socket Connected: " + sess);
+                 
     }
     
     @OnMessage
-    public void onWebSocketText(String message)
+    public void onWebSocketText(String message, Session sess)
     {
-        System.out.println("Received TEXT message: " + message);
+        String realMessage = message.toUpperCase();
+        
+        switch(realMessage){
+            case "HELLO" :    
+            System.out.println("Received TEXT message: " + message);
+            break;
+            case "W":
+            System.out.println("Player Moved Up");  
+            sendMessage(sess);
+            break;
+            case "A":
+            System.out.println("Player Moved Left");    
+            break;
+            case "S":
+            System.out.println("Player Moved Down");    
+            break;
+            case "D":
+            System.out.println("Player Moved Right");    
+            break;
+        }
     }
     
     @OnClose
@@ -35,5 +55,15 @@ public class EventSocket
     public void onWebSocketError(Throwable cause)
     {
         cause.printStackTrace(System.err);
+    }
+    
+    private void sendMessage(Session sess){
+        
+        try{
+             sess.getBasicRemote().sendText("This better work");
+        }
+        catch(Throwable t){
+            
+        }
     }
 }

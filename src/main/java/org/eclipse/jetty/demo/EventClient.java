@@ -12,7 +12,7 @@ public class EventClient
 {
     public static void main(String[] args)
     {
-        URI uri = URI.create("ws://localhost:8080/sock/events/");
+        URI uri = URI.create("ws://localhost:8080/sockets/events/");
 
         try
         {
