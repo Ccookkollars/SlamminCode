@@ -1,6 +1,6 @@
 
 
-webSocket = new WebSocket("ws://98.110.200.185:8080/sockets/events/");
+webSocket = new WebSocket("ws://localhost:8080/sockets/events/");
 webSocket.onmessage = function(event){
 	if (typeof event === "string"){
 		messageReceive(event);
