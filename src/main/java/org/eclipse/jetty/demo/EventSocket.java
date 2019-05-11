@@ -9,10 +9,17 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @ClientEndpoint
 @ServerEndpoint(value="/events/")
 public class EventSocket
 {
+    private static final Logger LOG = LoggerFactory.getLogger(EventSocket.class);
+    static {
+        LOG.info("Hey this is the normal way to write out log messages");
+    }
     @OnOpen
     public void onWebSocketConnect(Session sess)
     {

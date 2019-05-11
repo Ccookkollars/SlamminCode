@@ -1,0 +1,13 @@
+body {
+	background: #EEE;
+}
+
+#canvas {
+	background: #FFF;
+	border: thick;
+	image-rendering: pixelated;
+}
+canvas.style {
+	width: "100px";
+	height: "100px";
+}
