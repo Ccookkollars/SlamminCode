@@ -20,6 +20,7 @@ public class EventServer {
 
     public static void main(String[] args) {
         Server server = new Server();
+                
         ServerConnector connector = new ServerConnector(server);
         connector.setPort(8080);
         server.addConnector(connector);

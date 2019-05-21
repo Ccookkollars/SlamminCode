@@ -12,7 +12,7 @@ public class EventClient
 {
     public static void main(String[] args)
     {
-        URI uri = URI.create("ws://localhost:8080/sock/events/");
+        URI uri = URI.create("ws://localhost:8080/sockets/events/");
 
         try
         {
@@ -23,7 +23,7 @@ public class EventClient
                 // Attempt Connect
                 Session session = container.connectToServer(EventSocket.class,uri);
                 // Send a message
-                session.getBasicRemote().sendText("Hello");
+                session.getBasicRemote().sendText("W");
                 // Close session
                 session.close();
             }
@@ -44,4 +44,7 @@ public class EventClient
             t.printStackTrace(System.err);
         }
     }
+   
+    
+    
 }
