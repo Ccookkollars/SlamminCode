@@ -23,7 +23,7 @@ public class EventClient
                 // Attempt Connect
                 Session session = container.connectToServer(EventSocket.class,uri);
                 // Send a message
-                session.getBasicRemote().sendText("Hello");
+                session.getBasicRemote().sendText("W");
                 // Close session
                 session.close();
             }
