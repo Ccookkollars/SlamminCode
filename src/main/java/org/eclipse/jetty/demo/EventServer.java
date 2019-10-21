@@ -1,5 +1,8 @@
 package org.eclipse.jetty.demo;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.runrunrun.Dinosaur;
 import java.io.File;
 
 import javax.websocket.server.ServerContainer;
@@ -16,7 +19,10 @@ import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.websocket.jsr356.server.deploy.WebSocketServerContainerInitializer;
 
 public class EventServer {
+    public static final Gson mrg= new GsonBuilder().create();
     static Logger log = Log.getLogger(EventServer.class);
+    
+    public static Dinosaur red = new Dinosaur(Dinosaur.REDCOLOR,0,0);
 
     public static void main(String[] args) {
         Server server = new Server();
@@ -40,6 +46,8 @@ public class EventServer {
         // Mash those bitches together, we need to do both of them
         HandlerCollection contexts = new HandlerCollection(socketContext, resourceContext);
         server.setHandler(contexts);
+        
+       
 
         try {
             // Initialize javax.websocket layer
