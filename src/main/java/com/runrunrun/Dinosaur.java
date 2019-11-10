@@ -40,6 +40,10 @@ public class Dinosaur {
          this.moveAbsolute(this.x+newx, this.y+newy);
          return EventServer.mrg.toJson(this);
      }
+      
+    public String toString(){
+      return this.getColor();
+    }
 
     public int getX() {
         return x;
