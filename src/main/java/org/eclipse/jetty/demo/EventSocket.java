@@ -26,7 +26,7 @@ public class EventSocket {
     @OnOpen
     public void onWebSocketConnect(Session sess) {
         System.out.println("Socket Connected: " + sess);
-
+        
     }
 
     @OnMessage
@@ -39,7 +39,6 @@ public class EventSocket {
                     break;
                 case "W":
                     System.out.println("Player Moved Up");
-
                     sess.getBasicRemote().sendText(EventServer.red.moveRelative(0, -5));
 
                     break;

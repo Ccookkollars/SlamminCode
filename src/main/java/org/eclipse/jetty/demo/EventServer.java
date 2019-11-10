@@ -3,6 +3,8 @@ package org.eclipse.jetty.demo;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.runrunrun.Dinosaur;
+import com.runrunrun.Player;
+import java.util.ArrayList;
 import java.io.File;
 
 import javax.websocket.server.ServerContainer;
@@ -22,7 +24,13 @@ public class EventServer {
     public static final Gson mrg= new GsonBuilder().create();
     static Logger log = Log.getLogger(EventServer.class);
     
+    //Setup Dinosaurs
     public static Dinosaur red = new Dinosaur(Dinosaur.REDCOLOR,0,0);
+    public static Dinosaur blue = new Dinosaur(Dinosaur.BLUECOLOR,0,0);
+    public static ArrayList dinoList = new ArrayList<Dinosaur>(); 
+    
+    ArrayList playerList = new ArrayList<Player>(); 
+     
 
     public static void main(String[] args) {
         Server server = new Server();
@@ -30,6 +38,7 @@ public class EventServer {
         ServerConnector connector = new ServerConnector(server);
         connector.setPort(8080);
         server.addConnector(connector);
+        
 
         // Servlet for websockets
         ServletContextHandler socketContext = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -62,5 +71,8 @@ public class EventServer {
         } catch (Throwable t) {
             t.printStackTrace(System.err);
         }
+        
+     dinoList.add(red);
+     dinoList.add(blue);
     }
 }
