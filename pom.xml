@@ -6,7 +6,7 @@
 	<artifactId>runrunrun</artifactId>
 	<version>0.0.02</version>
 	<properties>
-		<jetty.version>9.4.34.v20201102</jetty.version>
+		<jetty.version>9.4.35.v20201120</jetty.version>
 		<slf4jVersion>1.6.1</slf4jVersion>
 	</properties>
 	<build>
